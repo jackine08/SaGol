@@ -33,3 +33,13 @@ export const getAllItems = async () => {
     throw error;
   }
 };
+
+export const removeItem = async (key) => {
+  console.log("excuted");
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch (error) {
+    console.error("Error removing item:", error);
+    // Handle the error appropriately, e.g., show an error message to the user
+  }
+};
