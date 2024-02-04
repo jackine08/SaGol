@@ -1,21 +1,19 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-} from 'react-native';
-import ShowPicker from '../component/image_picker'
-import Recent_images_grid_view from '../component/recent_images'
-import Search_best_images from '../component/search_best_images';
+import { SafeAreaView, StatusBar, TouchableOpacity, Text } from 'react-native';
+import ShowPicker from '../component/image_picker';
+import RecentImagesGridView from '../component/recent_images';
+import SearchBestImages from '../component/search_best_images';
 
-function Page_Main({ navigation }) {
+function PageMain({ navigation }) {
   return (
-    <SafeAreaView >
-      <StatusBar/>
-      <Search_best_images navigation={navigation}></Search_best_images>
-      <ShowPicker></ShowPicker>
-      <Recent_images_grid_view navigation={navigation}></Recent_images_grid_view>
+    <SafeAreaView>
+      <StatusBar />
+      <SearchBestImages navigation={navigation} />
+      <ShowPicker />
+      <RecentImagesGridView navigation={navigation} />
     </SafeAreaView>
   );
 }
 
-export default Page_Main;
+
+export default PageMain;

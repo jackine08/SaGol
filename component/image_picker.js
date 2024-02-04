@@ -40,7 +40,7 @@ const ShowPicker = () => {
       let existingItems = 0;
   
       const uploadPromises = [];
-  
+      console.log(files);
       for (let i = 0; i < files.length; i += 4) {
         const chunk = files.slice(i, i + 4);
   

@@ -1,46 +1,39 @@
-import RNFS, { PicturesDirectoryPath } from 'react-native-fs';
+import RNFS from 'react-native-fs';
 import { PermissionsAndroid } from 'react-native';
 
-async function get_picture_data() {
+async function get_picture_data(folderPath=RNFS.ExternalStorageDirectoryPath) {
+  console.log(folderPath);
   const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES);
 
-  var for_save = [];
+  const result = [];
 
   if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-    const downloadsFolderPath = RNFS.DownloadDirectoryPath;
-
-    console.log(downloadsFolderPath);
     try {
-      const files_downloads = await RNFS.readDir(downloadsFolderPath);
-      // const files_pictures = await RNFS.readDir(PicturesDirectoryPath);
-      const imageFiles_d = files_downloads.filter(file => file.isFile() && file.name.match(/\.(jpg|jpeg)$/i));
-      // const imageFiles_p = files_pictures.filter(file => file.isFile() && file.name.match(/\.(jpg|jpeg|png|gif)$/i));
-
-      // console.log(imageFiles);
-
-      // parsing image metadata
-      imageFiles_d.forEach(file => {
-        for_save.push({
-          "path": file.path,
-          "name": file.name
-        });
-      });
+      const files = await RNFS.readDir(folderPath);
       
-      // imageFiles_p.forEach(file => {
-      //   for_save.push({
-      //     "path": file.path,
-      //     "name": file.name
-      //   });
-      // });
+      for (const file of files) {
+        if (file.isFile() && file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+          // 파일이 이미지인 경우
+          result.push({
+            path: file.path,
+            name: file.name,
+          });
+        } else if (file.isDirectory()) {
+          // 폴더인 경우 해당 폴더 안의 이미지를 찾아서 추가 (재귀 호출)
+          console.log(file.path);
+          const subfolderImages = await get_picture_data(file.path);
+          result.push(...subfolderImages);
+        }
+      }
 
-      return for_save;
+      return result;
     } catch (error) {
-      console.error('Error reading Downloads folder:', error);
-      return for_save; // 에러 발생 시 빈 배열을 반환
+      console.error(`Error reading folder ${folderPath}:`, error);
+      return result; // 에러 발생 시 빈 배열을 반환
     }
   } else {
     console.log('Permission denied to access external storage');
-    return for_save; // 권한이 거부된 경우 빈 배열을 반환
+    return result; // 권한이 거부된 경우 빈 배열을 반환
   }
 }
 
