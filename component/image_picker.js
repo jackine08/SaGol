@@ -102,6 +102,7 @@ const ShowPicker = () => {
       console.error('Error uploading images:', error);
     }
   };
+  
   const resizeImage = async (originalPath, fileName) => {
     const resizedPath = RNFS.TemporaryDirectoryPath + `/${fileName}`;
     await ImageResizer.createResizedImage(originalPath, 800, 600, 'JPEG', 80)

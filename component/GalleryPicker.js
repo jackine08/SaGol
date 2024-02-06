@@ -1,7 +1,7 @@
 import RNFS from 'react-native-fs';
 import { PermissionsAndroid } from 'react-native';
 
-async function get_picture_data(folderPath=RNFS.ExternalStorageDirectoryPath) {
+async function get_picture_data(folderPath = RNFS.ExternalStorageDirectoryPath) {
   console.log(folderPath);
   const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES);
 
@@ -10,7 +10,10 @@ async function get_picture_data(folderPath=RNFS.ExternalStorageDirectoryPath) {
   if (granted === PermissionsAndroid.RESULTS.GRANTED) {
     try {
       const files = await RNFS.readDir(folderPath);
-      
+
+      // 정렬: 최신 수정일자 순서로
+      files.sort((a, b) => b.mtime.getTime() - a.mtime.getTime());
+
       for (const file of files) {
         if (file.isFile() && file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
           // 파일이 이미지인 경우

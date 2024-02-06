@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { getItem } from './storage';
+
+const { width } = Dimensions.get('window');
+const itemWidth = width * 0.35; // 화면 너비의 40%
 
 function ImageItem({ navigation, path, name }) {
   const [description, setDescription] = useState("");
@@ -31,28 +34,28 @@ function ImageItem({ navigation, path, name }) {
       </View>
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   itemContainer: {
     backgroundColor: '#ffffff',
-    padding: 10,
-    marginVertical: 8,
-    marginHorizontal: 8,
-    borderRadius: 10,
+    borderRadius: 20,
+    padding: 5,
+    margin: 8,
+    elevation: 5,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 4,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
   },
   image: {
-    width: 100,
-    height: 100,
-    borderRadius: 8,
+    width: itemWidth,
+    height: itemWidth, // 가로세로 동일하게 설정하여 정사각형으로 유지
+    borderRadius: 25,
+    resizeMode: 'cover', // 이미지의 크기를 늘리고, 가로세로 비율을 유지하며 표시
   },
 });
 

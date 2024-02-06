@@ -41,9 +41,9 @@ function Page_imageDescription({ route, navigation }) {
       <Image
         source={{ uri: path }}
         style={styles.image}
+        resizeMode="cover" // 이미지의 크기를 늘리고, 가로세로 비율을 유지하며 표시
       />
       <View>
-        <Text>사진 설명: {description}</Text>
         <Button
           title="이미지 공유하기"
           onPress={shareImage}
@@ -51,6 +51,8 @@ function Page_imageDescription({ route, navigation }) {
         <TouchableOpacity onPress={handleDelete} style={styles.deleteButton}>
           <Text style={styles.deleteButtonText}>이미지 삭제</Text>
         </TouchableOpacity>
+        <Text>사진 설명: {description}</Text>
+
       </View>
     </SafeAreaView>
   );
@@ -58,9 +60,9 @@ function Page_imageDescription({ route, navigation }) {
 
 const styles = StyleSheet.create({
   image: {
-    width: 200,
-    height: 200,
-    marginVertical: 10,
+    height: undefined,
+    width: undefined,
+    aspectRatio: 1, // 가로세로 비율을 1:1로 유지
   },
   deleteButton: {
     backgroundColor: 'red',

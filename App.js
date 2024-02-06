@@ -29,7 +29,7 @@ const Navigation = () => {
           options={() => ({  
             title: '곰탕',
             headerTitleAlign: 'center',
-            headerRight: SettingsButton,
+            // headerRight: SettingsButton,
           })}
         />
         <Stack.Screen
