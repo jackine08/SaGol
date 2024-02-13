@@ -19,7 +19,32 @@ function Page_imageDescription({ route, navigation }) {
       console.error('Error sharing image:', error.message);
     }
   };
-
+  const handleRename = async () => {
+    try {
+      // Extract the first sentence from the photo description
+      const firstSentence = description.split('.')[0];
+  
+      // Extract the folder name from the path
+      const folderName = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('_'));
+  
+      // Generate a new file name based on the first sentence and folder name
+      const newFileName = `${firstSentence.replace(/\s+/g, '_')}.jpg`;
+  
+      // Construct the new file path (excluding the 'file:///' prefix)
+      const newFilePath = `${folderName}${newFileName}`;
+      console.log(newFilePath);
+      // Move the file to the folder with the new name
+      await RNFS.moveFile(path, newFilePath);
+  
+      // Optional: You might want to add additional logic here to handle UI updates or navigate to a different screen
+    } catch (error) {
+      console.error("Error renaming image:", error);
+    }
+  };
+  
+  
+  
+  
   const handleDelete = async () => {
     try {
       // Remove the item from storage
@@ -48,9 +73,13 @@ function Page_imageDescription({ route, navigation }) {
           title="이미지 공유하기"
           onPress={shareImage}
         />
-        <TouchableOpacity onPress={handleDelete} style={styles.deleteButton}>
+        <Button
+          title="이미지 이름 변경하기"
+          onPress={handleRename}
+        />
+        {/* <TouchableOpacity onPress={handleDelete} style={styles.deleteButton}>
           <Text style={styles.deleteButtonText}>이미지 삭제</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Text>사진 설명: {description}</Text>
 
       </View>

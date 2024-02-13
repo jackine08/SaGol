@@ -11,7 +11,6 @@ LogBox.ignoreAllLogs(); // Ignore all log notifications
 const SearchBestImages = ({ navigation }) => {
   // State 정의
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
   const [isListening, setIsListening] = useState(false);
   const [tfMatrix, setTFMatrix] = useState([]);
 
@@ -46,29 +45,32 @@ const SearchBestImages = ({ navigation }) => {
       setResults(['Query is empty']);
       return;
     }
-
+  
     try {
       const translationResponse = await axios.post('http://minigpt4.hcailab.uos.ac.kr/translate', {
         query: queryToUse
       });
-
+  
       const queryTokens = tokenize(translationResponse.data);
-
+  
       // TF Matrix 정렬 및 결과 설정
       const sortedResults = tfMatrixToUse.map((item) => ({
         key: item.key,
         similarity: calculateSimilarity(queryTokens, item.tokens),
       })).sort((a, b) => b.similarity - a.similarity);
-
-      const topResults = sortedResults.slice(0, 10).map(result => result.key);
-
-      setResults(topResults);
+  
+      // 유사도가 0인 결과를 필터링
+      const filteredResults = sortedResults.filter(result => result.similarity > 0);
+      console.log(filteredResults);
+      const topResults = filteredResults.map(result => result.key);
+      console.log(topResults);
       navigation.navigate('Page_Results', { results: topResults });
     } catch (error) {
       console.error('Error querying server:', error);
       Alert.alert('서버 오류', '서버에서 응답을 가져오는 중 오류가 발생했습니다.');
     }
   };
+  
 
   // 유사도 계산 함수
   const calculateSimilarity = (queryTokens, itemTokens) => {

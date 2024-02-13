@@ -20,6 +20,7 @@ async function get_picture_data(folderPath = RNFS.ExternalStorageDirectoryPath) 
           result.push({
             path: file.path,
             name: file.name,
+            mtime: file.mtime, // 이미지의 마지막 수정 날짜 추가
           });
         } else if (file.isDirectory()) {
           // 폴더인 경우 해당 폴더 안의 이미지를 찾아서 추가 (재귀 호출)
