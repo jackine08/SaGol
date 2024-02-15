@@ -27,9 +27,9 @@ const Navigation = () => {
           name="Page_Main"
           component={Page_Main}
           options={() => ({  
-            title: '곰탕',
+            title: '사골',
             headerTitleAlign: 'center',
-            headerRight: SettingsButton,
+            // headerRight: SettingsButton,
           })}
         />
         <Stack.Screen
