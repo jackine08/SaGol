@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Image } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Page_Main from './screen/main';
@@ -8,42 +8,42 @@ import Page_Results from './screen/page_results';
 import Page_setting from './screen/settings';
 
 const Stack = createNativeStackNavigator();
- 
+
 const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerTitleAlign: 'center', // 헤더 타이틀을 화면 중앙에 배치합니다.
+          headerTitleAlign: 'center',
           headerTitleContainerStyle: {
-            left: 0, // 좌우 정중앙
-            right: 0, // 좌우 정중앙
-            top: 0, // 상하 정중앙
-            bottom: 0, // 상하 정중앙
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
           },
         }}
       >
         <Stack.Screen
           name="Page_Main"
           component={Page_Main}
-          options={() => ({  
+          options={() => ({
             title: '사골',
             headerTitleAlign: 'center',
-            // headerRight: SettingsButton,
           })}
         />
         <Stack.Screen
           name="Page_imageDescription"
           component={Page_imageDescription}
-          options={{ title: '이미지 설명' ,
-          headerAccessibilityLabel: '뒤로 가기'}}
+          options={{ 
+            title: '이미지 설명',
+            headerLeft: () => <BackButton />, }}
         />
         <Stack.Screen
           name="Page_Results"
           component={Page_Results}
-          options={{ title: '검색 결과',
-          headerAccessibilityLabel: '뒤로 가기'}}
-          
+          options={{ 
+            title: '검색 결과',
+            headerLeft: () => <BackButton />,}}
         />
         <Stack.Screen
           name="Page_setting"
@@ -55,26 +55,32 @@ const Navigation = () => {
   );
 };
 
-// 설정 버튼을 렌더링하는 별도의 함수
-const SettingsButton = () => {
+const backButtonImage = require('./assets/back-icon.png');
+
+// 뒤로가기 버튼을 렌더링하는 함수
+const BackButton = () => {
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity
-      style={{ padding: 10, marginRight: 10 }}
+      style={{ padding: 10, marginLeft: 10 }}
       onPress={() => {
         if (navigation) {
-          navigation.navigate("Page_setting");
+          navigation.goBack();
         }
       }}
+      accessibilityLabel="뒤로 가기"
     >
-      <Text>설정</Text>
+      <Image
+        source={backButtonImage}
+        style={{ width: 20, height: 20 }}  // 이미지의 크기를 조절하거나 스타일을 필요에 따라 수정하세요.
+      />
     </TouchableOpacity>
   );
 };
 
 const App = () => {
-  return ( 
+  return (
     <Navigation />
   );
 };
