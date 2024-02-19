@@ -119,10 +119,10 @@ const ShowPicker = () => {
   return (
     <View>
       <TouchableOpacity style={styles.button} onPress={requestStoragePermission}>
-        <Text>이미지 업로드</Text>
+        <Text>Upload Images</Text>
       </TouchableOpacity>
       <View style={styles.countContainer}>
-        <Text>사진 업로드 현황: {existingItemsRatio}</Text>
+        <Text>Uploaded Images Count: {existingItemsRatio}</Text>
       </View>
     </View>
   );

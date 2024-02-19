@@ -84,7 +84,7 @@ const SearchBestImages = ({ navigation }) => {
       if (isListening) {
         await Voice.stop();
       } else {
-        await Voice.start('ko-KR');
+        await Voice.start('en-EN');
       }
       setIsListening(!isListening);
     } catch (error) {
@@ -126,15 +126,15 @@ const SearchBestImages = ({ navigation }) => {
   // 검색어 확인 및 검색 함수
   const confirmQuery = (spokenQuery, tf) => {
     Alert.alert(
-      '검색어 확인',
-      `음성으로 입력된 검색어: ${spokenQuery}`,
+      'Keyword Confirm',
+      `Typed Keyword: ${spokenQuery}`,
       [
         {
-          text: '아니오',
+          text: 'NO',
           style: 'cancel',
         },
         {
-          text: '예',
+          text: 'YES',
           onPress: () => handleQuery(spokenQuery, tf),
         },
       ],
@@ -161,17 +161,17 @@ const SearchBestImages = ({ navigation }) => {
   return (
     <View>
       <Button
-        title={isListening ? '음성 입력 종료' : '음성 입력 시작'}
-        accessibilityLabel="이 버튼을 누르면 음성 인식이 시작됩니다. 음성인식이 완료된 후 인식된 검색어로 검색 결과 페이지를 보여줍니다."
+        title={isListening ? 'Voice Recognition End' : 'Voice Recognition Start'}
+        accessibilityLabel="Voice Recognition Button. After the voice recognition, this app shows the result of search."
         onPress={toggleSpeechRecognition}
       />
       <TextInput
         style={styles.input}
-        placeholder="검색어를 입력해주세요"
+        placeholder="Type a Keyword or Phrase"
         value={query}
         onChangeText={(text) => setQuery(text)}
       />
-      <Button title="검색" accessibilityLabel="이 버튼을 누르면 입력된 검색어로 사진을 검색합니다." onPress={() => handleQuery(query, tfMatrix)} />
+      <Button title="Search" accessibilityLabel="Search Button, this app search the images." onPress={() => handleQuery(query, tfMatrix)} />
     </View>
   );
 };

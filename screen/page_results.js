@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import RNFS from 'react-native-fs';
 
 const DateFilterDropdown = ({ onSelect, selectedOption }) => {
-  const options = ['전체','오늘', '지난 일주일', '지난 한 달', '지난 일년'];
+  const options = ['All','Today', 'Past week', 'Past month', 'Past year'];
   const [showOptions, setShowOptions] = useState(false);
 
   return (
@@ -37,14 +37,14 @@ function Page_Results({ route }) {
   const initialData = route.params.results;
   const [filteredData, setFilteredData] = useState(initialData);
   const navigation = useNavigation(); // useNavigation 훅 사용
-  const [selectedFilter, setSelectedFilter] = useState('전체');
+  const [selectedFilter, setSelectedFilter] = useState('All');
 
   const filterDataByDate = (filter) => {
     const currentDate = new Date();
     let filteredResults = initialData;
     initialData.filter(item => console.log(item));
 
-    if (filter !== '전체') {
+    if (filter !== 'All') {
       filteredResults = initialData.filter(item => isWithinDays(new Date(), currentDate, getDays(filter)));
     }
 
@@ -61,13 +61,13 @@ function Page_Results({ route }) {
 
   const getDays = (filter) => {
     switch (filter) {
-      case '오늘':
+      case 'Today':
         return 0;
-      case '지난 일주일':
+      case 'Past week':
         return 7;
-      case '지난 한 달':
+      case 'Past month':
         return 30;
-      case '지난 1년':
+      case 'Past year':
         return 365;
       default:
         return 0;
@@ -77,7 +77,7 @@ function Page_Results({ route }) {
   return (
     <SafeAreaView style={{ flexDirection: 'row', flex: 1 }}>
       <View style={{ flex: 1 }}>
-        <Text style={styles.resultsText}>검색 결과: {filteredData.length}개</Text>
+        <Text style={styles.resultsText}>Search Result Count: {filteredData.length}</Text>
         <FlatList
           data={filteredData}
           keyExtractor={(item) => item}

@@ -27,7 +27,7 @@ const Navigation = () => {
           name="Page_Main"
           component={Page_Main}
           options={() => ({  
-            title: '사골',
+            title: 'SaGol',
             headerTitleAlign: 'center',
             // headerRight: SettingsButton,
           })}
@@ -35,12 +35,12 @@ const Navigation = () => {
         <Stack.Screen
           name="Page_imageDescription"
           component={Page_imageDescription}
-          options={{ title: '이미지 설명' }}
+          options={{ title: 'Image Description' }}
         />
         <Stack.Screen
           name="Page_Results"
           component={Page_Results}
-          options={{ title: '검색 결과' }}
+          options={{ title: 'Search Result' }}
         />
         <Stack.Screen
           name="Page_setting"

@@ -70,17 +70,17 @@ function Page_imageDescription({ route, navigation }) {
       />
       <View>
         <Button
-          title="이미지 공유하기"
+          title="Share Image"
           onPress={shareImage}
         />
         <Button
-          title="이미지 이름 변경하기"
+          title="Change The Name of Image"
           onPress={handleRename}
         />
         {/* <TouchableOpacity onPress={handleDelete} style={styles.deleteButton}>
           <Text style={styles.deleteButtonText}>이미지 삭제</Text>
         </TouchableOpacity> */}
-        <Text>사진 설명: {description}</Text>
+        <Text>Image Description: {description}</Text>
 
       </View>
     </SafeAreaView>

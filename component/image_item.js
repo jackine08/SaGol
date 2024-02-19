@@ -15,8 +15,8 @@ function ImageItem({ navigation, path, name }) {
 
         // Check if storedDescription is empty or not a valid JSON string
         const parsedDescription = storedDescription
-          ? JSON.parse(storedDescription)["ko"]
-          : "설명 없음";
+          ? JSON.parse(storedDescription)["en"]
+          : "No Description";
 
         setDescription(parsedDescription);
       } catch (error) {
