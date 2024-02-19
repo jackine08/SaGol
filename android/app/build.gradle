@@ -76,7 +76,7 @@ android {
 
     namespace "com.sagol"
     defaultConfig {
-        applicationId "com.sagol"
+        applicationId "com.sagol_en"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 7
