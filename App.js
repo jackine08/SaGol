@@ -35,12 +35,15 @@ const Navigation = () => {
         <Stack.Screen
           name="Page_imageDescription"
           component={Page_imageDescription}
-          options={{ title: '이미지 설명' }}
+          options={{ title: '이미지 설명' ,
+          headerAccessibilityLabel: '뒤로 가기'}}
         />
         <Stack.Screen
           name="Page_Results"
           component={Page_Results}
-          options={{ title: '검색 결과' }}
+          options={{ title: '검색 결과',
+          headerAccessibilityLabel: '뒤로 가기'}}
+          
         />
         <Stack.Screen
           name="Page_setting"
