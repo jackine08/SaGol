@@ -67,6 +67,7 @@ function Page_imageDescription({ route, navigation }) {
         source={{ uri: path }}
         style={styles.image}
         resizeMode="cover" // 이미지의 크기를 늘리고, 가로세로 비율을 유지하며 표시
+        accessibilityLabel={description}
       />
       <View>
         <Button

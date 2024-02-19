@@ -86,9 +86,9 @@ function Page_Results({ route }) {
           contentContainerStyle={styles.flatListContainer}
         />
       </View>
-      <View style={styles.filterContainer}>
+      {/* <View style={styles.filterContainer}>
         <DateFilterDropdown onSelect={filterDataByDate} selectedOption={selectedFilter} />
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 }
